@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>JiangTing的博客</title>
-  <link rel="icon" href="images/favicon.ico" mce_href="/dir/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="images/favicon.ico">
   <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
 </head>
 <body>
@@ -15,11 +15,8 @@
         <li><a href="#articleList" data-toggle="tab" onclick="switchTab(0, 1)">所有文章</a></li>
       </ul>
     </div>
-
     <div class="col-md-10">
-
       <div class="tab-content" id="articleList">
-
       </div>
       <div class="text-center">
         <ul class="pagination">
@@ -73,16 +70,27 @@
       dataType: 'jsonp',
       jsonp:"callback",
       success: function (data) {
+
         typeId = data.typeId;
+
         for (i = 1; i <= data.totalPage; i++) {
           var page_li = $("<li>").appendTo(".pagination");
-          var page_a = $("<a>").appendTo(page_li).text(i).attr("href", "#").
-          attr("onclick", "switchTab("+typeId+","+(i)+")");
+          var page_a = $("<a>").appendTo(page_li).text(i)
+                               .attr("href", "#")
+                               .attr("onclick", "switchTab("+typeId+","+(i)+")");
         }
+
         $.each(data.list, function (cur, val) {
-          var list_group_item = $("<a>").addClass('list-group-item').attr("href", "read.html"+"?id="+val.id).appendTo($("#articleList"));
-          var article_title = $("<h4>").addClass('list-group-item-heading article-title').appendTo(list_group_item);  //定义一个标题h4
-          var addtime = $("<p>").addClass('list-group-item-text article-content').appendTo(list_group_item); //定义一个内容目录
+          var list_group_item = $("<a>").addClass('list-group-item')
+                                        .attr("href", "read.html"+"?id="+val.id)
+                                        .appendTo($("#articleList"))
+                  ;
+          var article_title = $("<h4>").addClass('list-group-item-heading article-title')
+                                       .appendTo(list_group_item);  //定义一个标题h4
+
+          var addtime = $("<p>").addClass('list-group-item-text article-content')
+                                .appendTo(list_group_item); //定义一个内容目录
+
           article_title.text(val.title);
           addtime.text(val.addtime);
         });
