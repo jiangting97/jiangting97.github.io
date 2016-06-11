@@ -35,7 +35,7 @@
             dataType: 'jsonp',
             jsonp:"callback",
             success: function (data) {
-                $("#blog-title").html(data.article.title);
+                $("#blog-title").html(data.article.title).appendTo();
                 $("#blog-content").html(data.article.content);
             },
             error: function (data) {
