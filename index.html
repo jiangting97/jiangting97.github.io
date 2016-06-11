@@ -1,48 +1,88 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>jiangting97的博客 by jiangting97</title>
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-dark.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/respond.js"></script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <!--[if lt IE 8]>
-    <link rel="stylesheet" href="stylesheets/ie.css">
-    <![endif]-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
 
-  </head>
-  <body>
-      <div id="header">
-        <nav>
-          <li class="fork"><a href="https://github.com/jiangting97">View On GitHub</a></li>
-        </nav>
-      </div><!-- end header -->
+  <link rel="stylesheet" href="__PUBLIC__/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
 
-    <div class="wrapper">
+  <div class="col-md-2">
 
-      <section>
-        <div id="title">
-          <h1>jiangting97的博客</h1>
-          <p>精于心，简于形</p>
-          <hr>
-          <span class="credits left">Project maintained by <a href="https://github.com/jiangting97">jiangting97</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
-        </div>
+    <ul class="nav" id="nav">
 
-        <h1>
-<a id="jiangting97githubio" class="anchor" href="#jiangting97githubio" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>jiangting97.github.io</h1>
+      <li><a href="#articleList" data-toggle="tab" onclick="switchTab(0, 1)">所有文章</a></li>
 
-<p>jiangting97的博客</p>
-      </section>
+      <foreach name="type" item="t">
+
+
+        <li><a href="#articleList" data-toggle="tab" onclick="switchTab('{$t.id}', 1)">{$t.name}</a></li>
+      </foreach>
+    </ul>
+  </div>
+
+  <div class="col-md-10">
+    博文列表
+    <div class="tab-content" id="articleList">
 
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
-  </body>
+    <div class="text-center">
+      <ul class="pagination">
+        <!--<li><a href="#">&laquo;</a></li>-->
+      </ul>
+    </div>
+  </div>
+
+</div>
+<script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/bootstrap.min.js"></script>
+<script>
+  typeId = 0;
+  page = 1;
+  $(document).ready(function() {
+    switchTab(typeId, page);
+  });
+
+  function switchTab(id, page) {
+    $("#articleList").html("");
+    $(".pagination").html("");
+    $.ajax({
+      url: "http://139.......",
+      data: {
+        typd_id: id,
+        page :page
+      },
+      type: 'post',
+      dataType: 'json',
+      success: function (data) {
+        count = data.count;
+        totalPage = data.totalPage;
+        curPage = data.curPage;
+        typeId = data.typeId;
+        for (i = 1; i <= totalPage; i++) {
+          var page_li = $("<li>").appendTo(".pagination");
+          var page_a = $("<a>").appendTo(page_li).text(i).attr("href", "#").
+          attr("onclick", "switchTab("+typeId+","+(i)+")");
+        }
+        $.each(data.list, function (cur, val) {
+          var list_group_item = $("<a>").addClass('list-group-item').attr("href", "read.html"+"?id="+val.id).appendTo($("#articleList"));
+          var article_title = $("<h4>").addClass('list-group-item-heading article-title').appendTo(list_group_item);  //定义一个标题h4
+          var addtime = $("<p>").addClass('list-group-item-text article-content').appendTo(list_group_item); //定义一个内容目录
+          article_title.text(val.title);
+          addtime.text(val.addtime);
+        });
+      },
+      error: function () {
+        alert("fail");
+      }
+    });
+  }
+
+
+
+</script>
+
+</body>
 </html>
