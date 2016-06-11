@@ -45,7 +45,7 @@
       url: "http://139.129.22.123/index.php/Home/Index/getType",
       data: {
       },
-      type: 'post',
+      type: 'get',
       dataType: 'jsonp',
       success: function (data) {
         $.each(data, function (i, val) {
@@ -70,7 +70,7 @@
         typd_id: id,
         page :page
       },
-      type: 'post',
+      type: 'get',
       dataType: 'jsonp',
       success: function (data) {
         count = data.count;
