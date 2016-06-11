@@ -7,39 +7,40 @@
   <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
 </head>
 <body>
-
-<file include="/header.html"></file>
+<div id="header"></div>
 <div class="container">
-
-  <div class="col-md-2">
-
-    <ul class="nav" id="nav">
-
-      <li><a href="#articleList" data-toggle="tab" onclick="switchTab(0, 1)">所有文章</a></li>
-      <!--<li><a href="#articleList" data-toggle="tab" onclick="switchTab('{$t.id}', 1)">{$t.name}</a></li>-->
-
-
-    </ul>
-  </div>
-
-  <div class="col-md-10">
-
-    <div class="tab-content" id="articleList">
-
-    </div>
-    <div class="text-center">
-      <ul class="pagination">
+  <div class="row">
+    <div class="col-md-2">
+      <ul class="nav" id="nav">
+        <li><a href="#articleList" data-toggle="tab" onclick="switchTab(0, 1)">所有文章</a></li>
+        <!--<li><a href="#articleList" data-toggle="tab" onclick="switchTab('{$t.id}', 1)">{$t.name}</a></li>-->
       </ul>
     </div>
-  </div>
 
+    <div class="col-md-10">
+
+      <div class="tab-content" id="articleList">
+
+      </div>
+      <div class="text-center">
+        <ul class="pagination">
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
+
+<div id="footer"></div>
 <script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.js"></script>
 <script type="text/javascript" src="./javascripts/bootstrap.min.js"></script>
 <script>
   typeId = 0;
   page = 1;
   $(document).ready(function() {
+
+    $("#header").load("header.html");
+    $("#footer").load("footer.html");
+
     $.ajax({
       url: "http://139.129.22.123/index.php/Home/Index/getType",
       data: {
@@ -47,8 +48,6 @@
       type: 'post',
       dataType: 'jsonp',
       success: function (data) {
-
-        alert(data);
         $.each(data, function (i, val) {
 //          alert(val.id);
           var li = $("<li>").appendTo("#nav");
