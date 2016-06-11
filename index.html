@@ -4,9 +4,11 @@
   <meta charset="UTF-8">
   <title>Title</title>
 
-  <link rel="stylesheet" href="__PUBLIC__/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
 </head>
 <body>
+
+<file include="/header.html"></file>
 <div class="container">
 
   <div class="col-md-2">
@@ -14,34 +16,49 @@
     <ul class="nav" id="nav">
 
       <li><a href="#articleList" data-toggle="tab" onclick="switchTab(0, 1)">所有文章</a></li>
+      <!--<li><a href="#articleList" data-toggle="tab" onclick="switchTab('{$t.id}', 1)">{$t.name}</a></li>-->
 
-      <foreach name="type" item="t">
 
-
-        <li><a href="#articleList" data-toggle="tab" onclick="switchTab('{$t.id}', 1)">{$t.name}</a></li>
-      </foreach>
     </ul>
   </div>
 
   <div class="col-md-10">
-    博文列表
+
     <div class="tab-content" id="articleList">
 
     </div>
     <div class="text-center">
       <ul class="pagination">
-        <!--<li><a href="#">&laquo;</a></li>-->
       </ul>
     </div>
   </div>
 
 </div>
 <script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.js"></script>
-<script type="text/javascript" src="__PUBLIC__/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./javascripts/bootstrap.min.js"></script>
 <script>
   typeId = 0;
   page = 1;
   $(document).ready(function() {
+    $.ajax({
+      url: "http://139.129.22.123/index.php/Home/Index/getType",
+      data: {
+      },
+      type: 'post',
+      dataType: 'jsonp',
+      success: function (data) {
+
+        alert(data);
+        $.each(data, function (i, val) {
+//          alert(val.id);
+          var li = $("<li>").appendTo("#nav");
+          var a = $("<a>").attr("data-toggle",'tab').attr("onclick","switchTab("+val.id+", 1)").text(val.name).appendTo(li);
+        });
+      },
+      error: function () {
+        alert("ajax请求失败!");
+      }
+    });
     switchTab(typeId, page);
   });
 
@@ -49,13 +66,13 @@
     $("#articleList").html("");
     $(".pagination").html("");
     $.ajax({
-      url: "http://139.......",
+      url: "http://139.129.22.123/index.php/Home/Index/showTab",
       data: {
         typd_id: id,
         page :page
       },
       type: 'post',
-      dataType: 'json',
+      dataType: 'jsonp',
       success: function (data) {
         count = data.count;
         totalPage = data.totalPage;
@@ -75,12 +92,10 @@
         });
       },
       error: function () {
-        alert("fail");
+        alert("ajax请求失败!");
       }
     });
   }
-
-
 
 </script>
 

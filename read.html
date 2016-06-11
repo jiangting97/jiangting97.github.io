@@ -2,16 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{$article.title}</title>
+    <title></title>
 </head>
 <body>
 <div class="container">
-    <h1 class="text-center">{$article.title}</h1>
+    <h1 class="text-center" id="blog-title"></h1>
     <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-8">{$article.content}</div>
+        <div class="col-md-8" id="blog-content"></div>
         <div class="col-md-2"></div>
     </div>
 </div>
+
+<script type="text/javascript">
+    <script>
+    var   n=self.location.href.indexOf("?")//查看是否包含参数   
+    if(n>0)//存在参数   
+    {
+        //参数   
+        var   para=self.location.href.substr(n+1));
+
+    }
+    document.write('></iframe>')
+</script>   
+</script>
+
 </body>
 </html>
