@@ -50,9 +50,8 @@
       jsonp:"callback",
       success: function (data) {
         $.each(data, function (i, val) {
-//          alert(val.id);
           var li = $("<li>").appendTo("#nav");
-          var a = $("<a>").attr("data-toggle",'tab').attr("onclick","switchTab("+val.id+", 1)").text(val.name).appendTo(li);
+          var a = $("<a>").attr("data-toggle",'tab').attr("href","#").attr("onclick","switchTab("+val.id+", 1)").text(val.name).appendTo(li);
         });
       },
       error: function () {
