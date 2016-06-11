@@ -33,6 +33,7 @@
             },
             type: 'get',
             dataType: 'jsonp',
+            jsonp:"callback",
             success: function (data) {
                 $("#blog-title").html(data.article.title);
                 $("#blog-content").html(data.article.content);

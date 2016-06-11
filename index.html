@@ -47,6 +47,7 @@
       },
       type: 'get',
       dataType: 'jsonp',
+      jsonp:"callback",
       success: function (data) {
         $.each(data, function (i, val) {
 //          alert(val.id);
@@ -72,6 +73,7 @@
       },
       type: 'get',
       dataType: 'jsonp',
+      jsonp:"callback",
       success: function (data) {
         count = data.count;
         totalPage = data.totalPage;
