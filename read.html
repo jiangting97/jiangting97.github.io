@@ -39,8 +39,7 @@
                 $("#blog-content").html(data.article.content);
             },
             error: function (data) {
-                alert(JSON.stringify(data));
-                alert("ajax请求失败!");
+                alert("ajax请求失败,可能是您使用了HTTPS!");
             }
         });
 

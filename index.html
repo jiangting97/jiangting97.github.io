@@ -13,7 +13,6 @@
     <div class="col-md-2">
       <ul class="nav" id="nav">
         <li><a href="#articleList" data-toggle="tab" onclick="switchTab(0, 1)">所有文章</a></li>
-        <!--<li><a href="#articleList" data-toggle="tab" onclick="switchTab('{$t.id}', 1)">{$t.name}</a></li>-->
       </ul>
     </div>
 
@@ -55,7 +54,7 @@
         });
       },
       error: function () {
-        alert("ajax请求失败!");
+        alert("ajax请求失败,可能是您使用了HTTPS!");
       }
     });
     switchTab(typeId, page);
@@ -74,11 +73,8 @@
       dataType: 'jsonp',
       jsonp:"callback",
       success: function (data) {
-        count = data.count;
-        totalPage = data.totalPage;
-        curPage = data.curPage;
         typeId = data.typeId;
-        for (i = 1; i <= totalPage; i++) {
+        for (i = 1; i <= data.totalPage; i++) {
           var page_li = $("<li>").appendTo(".pagination");
           var page_a = $("<a>").appendTo(page_li).text(i).attr("href", "#").
           attr("onclick", "switchTab("+typeId+","+(i)+")");
@@ -92,7 +88,7 @@
         });
       },
       error: function () {
-        alert("ajax请求失败!");
+        alert("ajax请求失败,可能是您使用了HTTPS!");
       }
     });
   }
