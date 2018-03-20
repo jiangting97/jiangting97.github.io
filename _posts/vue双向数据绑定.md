@@ -1,3 +1,18 @@
+---
+layout:     post
+title:      Vue源码学习-双向数据绑定
+subtitle:   双向数据绑定
+date:       2018-03-20
+author:     BY
+header-img: img/post-bg-debug.png
+catalog: true
+tags:
+    - Vue
+    - JS
+---
+
+
+
 init.js
 
 主要负责初始化：
