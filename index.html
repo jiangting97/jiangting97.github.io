@@ -1,107 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>JiangTing的博客</title>
-  <link rel="icon" href="images/favicon.ico">
-  <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
-</head>
-<body>
-<div id="header"></div>
-<div class="container">
-  <div class="row">
-    <div class="col-md-2">
-      <ul class="nav" id="nav">
-        <li><a href="#articleList" data-toggle="tab" onclick="switchTab(0, 1)">所有文章</a></li>
-      </ul>
-    </div>
-    <div class="col-md-10">
-      <div class="tab-content" id="articleList">
-      </div>
-      <div class="text-center">
-        <ul class="pagination">
-        </ul>
-      </div>
-    </div>
-  </div>
+---
+layout: page
+description: "Thinking will not overcome fear but action will."
+---
+
+{% for post in paginator.posts %}
+<div class="post-preview">
+    <a href="{{ post.url | prepend: site.baseurl }}">
+        <h2 class="post-title">
+            {{ post.title }}
+        </h2>
+        {% if post.subtitle %}
+        <h3 class="post-subtitle">
+            {{ post.subtitle }}
+        </h3>
+        {% endif %}
+        <div class="post-content-preview">
+            {{ post.content | strip_html | truncate:200 }}
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }}
+    </p>
 </div>
+<hr>
+{% endfor %}
 
-<div id="footer"></div>
-<script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.js"></script>
-<script type="text/javascript" src="./javascripts/bootstrap.min.js"></script>
-<script>
-  typeId = 0;
-  page = 1;
-  $(document).ready(function() {
-
-    $("#header").load("header.html");
-    $("#footer").load("footer.html");
-
-    $.ajax({
-      url: "http://139.129.22.123/index.php/Home/Index/getType",
-      data: {
-      },
-      type: 'get',
-      dataType: 'jsonp',
-      jsonp:"callback",
-      success: function (data) {
-        $.each(data, function (i, val) {
-          var li = $("<li>").appendTo("#nav");
-          var a = $("<a>").attr("data-toggle",'tab').attr("href","#").attr("onclick","switchTab("+val.id+", 1)").text(val.name).appendTo(li);
-        });
-      },
-      error: function () {
-        alert("ajax请求失败,可能是您使用了HTTPS!");
-      }
-    });
-    switchTab(typeId, page);
-  });
-
-  function switchTab(id, page) {
-    $("#articleList").html("");
-    $(".pagination").html("");
-    $.ajax({
-      url: "http://139.129.22.123/index.php/Home/Index/showTab",
-      data: {
-        typd_id: id,
-        page :page
-      },
-      type: 'get',
-      dataType: 'jsonp',
-      jsonp:"callback",
-      success: function (data) {
-
-        typeId = data.typeId;
-
-        for (i = 1; i <= data.totalPage; i++) {
-          var page_li = $("<li>").appendTo(".pagination");
-          var page_a = $("<a>").appendTo(page_li).text(i)
-                               .attr("href", "#")
-                               .attr("onclick", "switchTab("+typeId+","+(i)+")");
-        }
-
-        $.each(data.list, function (cur, val) {
-          var list_group_item = $("<a>").addClass('list-group-item')
-                                        .attr("href", "read.html"+"?id="+val.id)
-                                        .appendTo($("#articleList"))
-                  ;
-          var article_title = $("<h4>").addClass('list-group-item-heading article-title')
-                                       .appendTo(list_group_item);  //定义一个标题h4
-//
-//          var addtime = $("<p>").addClass('list-group-item-text article-content')
-//                                .appendTo(list_group_item); //定义一个内容目录
-
-          article_title.text(val.title);
-//         addtime.text(val.addtime);
-        });
-      },
-      error: function () {
-        alert("ajax请求失败,可能是您使用了HTTPS!");
-      }
-    });
-  }
-
-</script>
-
-</body>
-</html>
+<!-- Pager -->
+{% if paginator.total_pages > 1 %}
+<ul class="pager">
+    {% if paginator.previous_page %}
+    <li class="previous">
+        <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr; Newer Posts</a>
+    </li>
+    {% endif %}
+    {% if paginator.next_page %}
+    <li class="next">
+        <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older Posts &rarr;</a>
+    </li>
+    {% endif %}
+</ul>
+{% endif %}
