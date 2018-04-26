@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>三栏布局</title>
+</head>
+<style>
+    html * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .layout {
+        height: 100px;
+        margin-bottom: 10px;
+    }
+
+    .layout div {
+        height: 100px;
+    }
+
+    .left {
+        background-color: #ff4b65;
+        width: 300px;
+    }
+
+    .right {
+        background-color: orange;
+        width: 300px;
+    }
+
+    .middle {
+        background-color: #5bc0de;
+    }
+
+    .float .left {
+        float: left;
+    }
+
+    .float .right {
+        width: 300px;
+        float: right;
+    }
+
+
+</style>
+
+<body>
+
+<div>
+    1、每个方案的优缺点：
+    （1）浮动，需要清除浮动、兼容性比较好
+    （2）absolute脱离了文档流、所有的子元素都脱离文档流
+    （3）flex布局实现比较好、IE8不支持
+    （4）表格布局、兼容性比较好，当其中一个单元格高度超出的时候，两侧是需要跟着调整
+    （5）网格布局：
+
+    2、去掉高度已知，flex布局和table布局是可以使用的
+二、
+    1、语义化
+    2、页面布局理解要深刻
+    3、css基础知识扎实
+    4、思维灵活且积极上进
+    5、代码规范
+
+    三栏布局：上下固定，中间自适应
+
+    两栏布局：
+    左宽渡固定，右自适应
+    右宽度固定，左自适应
+    上高度固定，下自适应
+    下高度固定，上自适应
+</div>
+
+<div>
+    三栏布局，其中左右栏300px,中间自适应
+
+</div>
+
+<section class="layout">
+    <article class="float">
+        <div class="left">
+            左浮动
+        </div>
+
+        <div class="right">
+            右侧浮动
+        </div>
+
+        <div class="middle">
+            1、使用浮动的方法
+        </div>
+    </article>
+</section>
+
+
+<section class="layout ">
+    <style>
+        .absolute div {
+            position: absolute;
+        }
+
+        .absolute .left {
+            left: 0;
+            width: 300px;
+            background-color: #ff4b65;
+        }
+
+        .absolute .middle {
+            left: 300px;
+            right: 300px;
+            background-color: #5bc0de;
+        }
+
+        .absolute .right {
+            right: 0;
+            width: 300px;
+            background-color: orange;
+        }
+    </style>
+    <article class="absolute">
+        <div class="left">
+            左浮动
+        </div>
+        <div class="middle">
+            1、使用绝对定位方法
+        </div>
+        <div class="right">
+            右侧浮动
+        </div>
+    </article>
+</section>
+
+<section class="layout">
+    <style>
+        .flex {
+            display: flex;
+        }
+
+        .middle {
+            flex: 1;
+        }
+    </style>
+    <article class="flex">
+        <div class="left">
+            left
+        </div>
+        <div class="middle">3、flex布局</div>
+        <div class="right">
+            right
+        </div>
+    </article>
+</section>
+
+<section class="layout">
+    <style>
+        .table {
+            display: table;
+            width: 100%;
+        }
+
+        .table > div {
+            display: table-cell;
+        }
+
+    </style>
+    <article class="table">
+        <div class="left">
+
+        </div>
+        <div class="middle">
+            4、table布局
+        </div>
+        <div class="right"></div>
+    </article>
+</section>
+
+<section class="layout">
+    <style>
+        .grid {
+            display: grid;
+            width: 100%;
+            grid-template-rows: 100px;
+            grid-template-columns: 300px auto 300px;
+        }
+    </style>
+    <article class="grid">
+        <div class="left"></div>
+        <div class="middle">5、网格布局</div>
+        <div class="right">
+        </div>
+    </article>
+</section>
+
+
+1、双飞翼布局
+<section class="layout-no-height">
+    <style>
+        .float-b {
+            overflow: hidden;
+        }
+
+        .float-b .left {
+            float: left;
+            margin-left: -100%;
+            padding-bottom: 999px;
+            margin-bottom: -999px;
+        }
+        .float-b .right {
+            float: left;
+            margin-left: -300px;
+            padding-bottom: 999px;
+            margin-bottom: -999px;
+        }
+
+        .float-b .middle {
+            width: 100%;
+            float: left;
+            padding-bottom: 999px;
+            margin-bottom: -999px;
+        }
+
+        .middle .inner {
+            margin-left: 300px;
+        }
+
+    </style>
+    <article class="float-b">
+        <div class="middle">
+            <div class="inner">
+                <div>1、圣杯布局</div>
+                <div>1、圣杯布局</div>
+                <div>1、圣杯布局</div>
+                <div>1、圣杯布局</div>
+            </div>
+        </div>
+        <div class="left">
+            左浮动<br>
+        </div>
+        <div class="right">
+            右侧浮动
+        </div>
+    </article>
+
+</section>
+</body>
+</html>
